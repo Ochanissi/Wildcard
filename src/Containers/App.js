@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import CardList from './CardList';
-import SearchBox from './SearchBox'
-import Scroll from './Scroll';
+import CardList from '../Components/CardList';
+import SearchBox from '../Components/SearchBox'
+import Scroll from '../Components/Scroll';
 import './App.css';
 
 
@@ -26,11 +26,13 @@ class App extends Component {
         // console.log(event.target.value);
         // console.log(filteredCharacters);
     }
+
     render() {
-        const filteredCharacters = this.state.characters.filter(characters => {
-            return characters.name.toLowerCase().includes(this.state.searchfield.toLowerCase());
+        const { characters, searchfield } = this.state;
+        const filteredCharacters = characters.filter(character => {
+            return character.name.toLowerCase().includes(searchfield.toLowerCase());
         })
-        if (this.state.characters.length === 0) {
+        if (!characters.length) {
             return <h1>Loading</h1>
         } else {
             return (
