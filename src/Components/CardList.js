@@ -2,6 +2,9 @@ import React from 'react';
 import Card from './Card';
 
 const CardList = ({ characters }) => {
+    // if (true) {
+    //     throw new Error('NOOOO');
+    // }
     return (
         <div>
             {
