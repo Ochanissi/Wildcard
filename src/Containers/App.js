@@ -1,18 +1,31 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import CardList from '../Components/CardList';
 import SearchBox from '../Components/SearchBox'
 import Scroll from '../Components/Scroll';
 import ErrorBoundry from '../Components/ErrorBoundry';
 import './App.css';
 
+import { setSearchField } from '../actions';
 
+const mapStateToProps = state => {
+    return {
+        searchField: state.searchField
+    }
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        onSearchChange: (event) => dispatch(setSearchField(event.target.value))
+    }
+}
 
 class App extends Component {
     constructor() {
         super()
         this.state = {
-            characters: [],
-            searchfield: ''
+            characters: []
+            // searchfield: ''
         }
     }
 
@@ -22,16 +35,17 @@ class App extends Component {
             .then(users => this.setState({ characters: users }));
     }
 
-    onSearchChange = (event) => {
-        this.setState({ searchfield: event.target.value })
-        // console.log(event.target.value);
-        // console.log(filteredCharacters);
-    }
+    // onSearchChange = (event) => {
+    //     this.setState({ searchfield: event.target.value })
+    //     // console.log(event.target.value);
+    //     // console.log(filteredCharacters);
+    // }
 
     render() {
-        const { characters, searchfield } = this.state;
+        const { characters } = this.state;
+        const { searchField, onSearchChange } = this.props;
         const filteredCharacters = characters.filter(character => {
-            return character.name.toLowerCase().includes(searchfield.toLowerCase());
+            return character.name.toLowerCase().includes(searchField.toLowerCase());
         })
         if (!characters.length) {
             return <h1>Loading</h1>
@@ -39,7 +53,7 @@ class App extends Component {
             return (
                 <div className='tc'>
                     <h1>WildCard</h1>
-                    <SearchBox searchChange={this.onSearchChange}/>
+                    <SearchBox searchChange={onSearchChange}/>
                     <Scroll>
                         <ErrorBoundry>
                             <CardList characters={filteredCharacters}/>
@@ -51,4 +65,4 @@ class App extends Component {
     }
 }
 
-export default App;
+export default connect(mapStateToProps, mapDispatchToProps)(App);
