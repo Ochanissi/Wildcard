@@ -6,33 +6,38 @@ import Scroll from '../Components/Scroll';
 import ErrorBoundry from '../Components/ErrorBoundry';
 import './App.css';
 
-import { setSearchField } from '../actions';
+import { setSearchField, requestCharacters } from '../actions';
 
 const mapStateToProps = state => {
     return {
-        searchField: state.searchField
+        searchField: state.searchCharacters.searchField,
+        characters: state.requestCharacters.characters,
+        isPending: state.requestCharacters.isPending,
+        error: state.requestCharacters.error
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        onSearchChange: (event) => dispatch(setSearchField(event.target.value))
+        onSearchChange: (event) => dispatch(setSearchField(event.target.value)),
+        onRequestCharacters: () => dispatch(requestCharacters())
     }
 }
 
 class App extends Component {
-    constructor() {
-        super()
-        this.state = {
-            characters: []
-            // searchfield: ''
-        }
-    }
+    // constructor() {
+    //     super()
+    //     this.state = {
+    //         characters: []
+    //         // searchfield: ''
+    //     }
+    // }
 
     componentDidMount() {
-        fetch('https://jsonplaceholder.typicode.com/users')
-            .then(response => response.json())
-            .then(users => this.setState({ characters: users }));
+        this.props.onRequestCharacters();
+        // fetch('https://jsonplaceholder.typicode.com/users')
+        //     .then(response => response.json())
+        //     .then(users => this.setState({ characters: users }));
     }
 
     // onSearchChange = (event) => {
@@ -42,12 +47,12 @@ class App extends Component {
     // }
 
     render() {
-        const { characters } = this.state;
-        const { searchField, onSearchChange } = this.props;
+        // const { characters } = this.state;
+        const { searchField, onSearchChange, characters, isPending } = this.props;
         const filteredCharacters = characters.filter(character => {
             return character.name.toLowerCase().includes(searchField.toLowerCase());
         })
-        if (!characters.length) {
+        if (!isPending) {
             return <h1>Loading</h1>
         } else {
             return (
