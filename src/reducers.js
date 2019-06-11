@@ -10,29 +10,27 @@ const initialStateSearch = {
 }
 
 export const searchCharacters = (state=initialStateSearch, action={}) => {
-    switch(action.type) {
+    switch (action.type) {
         case CHANGE_SEARCHFIELD:
-            return Object.assign({}, state, { searchField:action.payload });
-            // return { ..state, searchField:action.payload}; // Object destructuring / Object spread operator
+            return Object.assign({}, state, { searchField: action.payload });
         default:
             return state;
     }
 }
 
 const initialStateCharacters = {
-    isPending: false,
-    robots: [],
-    error: ''
+    characters: [],
+    isPending: true
 }
 
 export const requestCharacters = (state=initialStateCharacters, action={}) => {
-    switch(action.type) {
+    switch (action.type) {
         case REQUEST_CHARACTERS_PENDING:
-            return Object.assign({}, state, { isPending:true });
+            return Object.assign({}, state, { isPending: true });
         case REQUEST_CHARACTERS_SUCCESS:
             return Object.assign({}, state, { characters: action.payload, isPending: false });
         case REQUEST_CHARACTERS_FAILED:
-            return Object.assign({}, state, { error: action.payload, isPending: false});
+            return Object.assign({}, state, { error: action.payload });
         default:
             return state;
     }

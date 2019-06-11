@@ -8,7 +8,7 @@ import './App.css';
 
 import { setSearchField, requestCharacters } from '../actions';
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
     return {
         searchField: state.searchCharacters.searchField,
         characters: state.requestCharacters.characters,
@@ -25,39 +25,21 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 class App extends Component {
-    // constructor() {
-    //     super()
-    //     this.state = {
-    //         characters: []
-    //         // searchfield: ''
-    //     }
-    // }
-
     componentDidMount() {
         this.props.onRequestCharacters();
-        // fetch('https://jsonplaceholder.typicode.com/users')
-        //     .then(response => response.json())
-        //     .then(users => this.setState({ characters: users }));
     }
 
-    // onSearchChange = (event) => {
-    //     this.setState({ searchfield: event.target.value })
-    //     // console.log(event.target.value);
-    //     // console.log(filteredCharacters);
-    // }
-
     render() {
-        // const { characters } = this.state;
         const { searchField, onSearchChange, characters, isPending } = this.props;
         const filteredCharacters = characters.filter(character => {
             return character.name.toLowerCase().includes(searchField.toLowerCase());
         })
-        if (!isPending) {
+        if (isPending) {
             return <h1>Loading</h1>
         } else {
             return (
                 <div className='tc'>
-                    <h1>WildCard</h1>
+                    <h1 className='f1'>WildCard</h1>
                     <SearchBox searchChange={onSearchChange}/>
                     <Scroll>
                         <ErrorBoundry>
