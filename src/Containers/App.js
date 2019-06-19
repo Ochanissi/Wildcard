@@ -1,13 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import CardList from '../Components/CardList';
-import SearchBox from '../Components/SearchBox'
-import Scroll from '../Components/Scroll';
-import ErrorBoundry from '../Components/ErrorBoundry';
-import Header from '../Components/Header';
+import { setSearchField, requestCharacters } from '../actions';
+import MainPage from '../Components/MainPage';
+
 import './App.css';
 
-import { setSearchField, requestCharacters } from '../actions';
 
 const mapStateToProps = (state) => {
     return {
@@ -26,32 +23,10 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 class App extends Component {
-    componentDidMount() {
-        this.props.onRequestCharacters();
-    }
-
     render() {
-        const { searchField, onSearchChange, characters, isPending } = this.props;
-        const filteredCharacters = characters.filter(character => {
-            return character.name.toLowerCase().includes(searchField.toLowerCase());
-        })
-        if (isPending) {
-            return <h1>Loading</h1>
-        } else {
-            return (
-                <div className='tc'>
-                    <Header />
-                    <SearchBox searchChange={onSearchChange}/>
-                    <Scroll>
-                        { isPending ? <h1>Loading</h1> :
-                        <ErrorBoundry>
-                            <CardList characters={filteredCharacters}/>
-                        </ErrorBoundry>
-                        }
-                    </Scroll>
-                </div>
-            );
-        }
+        return (
+            <MainPage { ...this.props } />
+        )
     }
 }
 
