@@ -32,7 +32,28 @@ it('renders characters correctly', () => {
         searchField: 'John',
         isPending: false
     }
-    wrapper2 = shallow(<MainPage { ...mockProps } />);
+    wrapper2 = shallow(<MainPage { ...mockProps2 } />);
     expect(wrapper2.instance().filterCharacters([])).toEqual([]);
-    expect(wrapper2.instance().filterCharacters([])).toEqual([]);
+    expect(wrapper2.instance().filterCharacters([])).toEqual([{
+        id: 3,
+        name: 'John',
+        email: 'john@gmail.com'
+    }]);
+})
+
+it('renders characters correctly 2', () => {
+    const mockProps3 = {
+        onRequestCharacters: jest.fn(),
+        characters: [{
+            id: 3,
+            name: 'John',
+            email: 'john@gmail.com'
+        }],
+        searchField: 'a',
+        isPending: false
+    }
+    const filteredCharacters = []
+    wrapper3 = shallow(<MainPage { ...mockProps3 } />);
+    expect(wrapper3.instance().filterCharacters([])).toEqual([]);
+    expect(wrapper3.instance().filterCharacters([])).toEqual(filteredCharacters);
 })
