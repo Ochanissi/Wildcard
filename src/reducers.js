@@ -20,7 +20,7 @@ export const searchCharacters = (state=initialStateSearch, action={}) => {
 
 const initialStateCharacters = {
     characters: [],
-    isPending: true
+    isPending: false
 }
 
 export const requestCharacters = (state=initialStateCharacters, action={}) => {
