@@ -72,3 +72,42 @@ interface CatArmy {
 
 let dog = {} as CatArmy;
 dog.count;
+
+// Function
+
+let fightCharacterArmy3 = (characters: CharacterArmy): void => {
+    console.log('FIGHT!');
+}
+
+let fightCharacterArmy4 = (characters: {count: number, type: string, magic: string}): number => {
+    console.log('FIGHT!');
+    return 5;
+}
+
+// Class
+class Animal {
+    public sing: string = 'lalalala'; // by default is set to public, but it can be private
+    constructor(sound: string) {
+        this.sing = sound;
+    }
+
+    greet() {
+        return `Hello ${this.sing}`;
+    }
+}
+
+let lion = new Animal('Raaawwwrr');
+lion.greet();
+
+console.log(lion.greet());
+
+// Union => it can be a string or a number; | => or
+let confused: string | number | boolean = true;
+
+
+
+
+// ----------------------------------------------------------
+
+let x = 4;
+// x = 'Hello'; -> returns an error because it automatically expects a number, without explicitly defining it.
