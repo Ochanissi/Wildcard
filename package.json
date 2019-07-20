@@ -5,6 +5,8 @@
   "homepage": "https://Ochanissi.github.io/Wildcard",
   "dependencies": {
     "gh-pages": "^2.0.1",
+    "husky": "^3.0.1",
+    "pretty-quick": "^1.11.1",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-redux": "^7.0.3",
@@ -20,7 +22,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "pre-commit": "pretty-quick --staged"
   },
   "repository": {
     "type": "git",
@@ -44,6 +47,7 @@
   "devDependencies": {
     "enzyme": "^3.10.0",
     "enzyme-adapter-react-16": "^1.14.0",
+    "prettier": "1.18.2",
     "redux-mock-store": "^1.5.3"
   }
 }
